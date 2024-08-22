@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Checklist Form</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #483D3D;
+            --background-color: #FEF6E0;
+            --secondary-background-color: #F8DFC2;
+            --text-color: #483D3D;
+        }
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+        form {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--secondary-background-color);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="email"], input[type="url"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid var(--primary-color);
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: var(--background-color);
+        }
+        th, td {
+            border: 1px solid var(--primary-color);
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+        }
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid var(--primary-color);
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: var(--primary-color);
+            color: var(--background-color);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #5A4F4F;
+        }
+        #summary {
+            margin-top: 20px;
+            background-color: var(--background-color);
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .radio-group {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+        .radio-option input[type="radio"] {
+            margin-right: 5px;
+        }
+        #addRowButton {
+            background-color: #5A4F4F;
+        }
+        #addRowButton:hover {
+            background-color: #6B5F5F;
+        }
+    </style>
+</head>
+<body>
+    <form id="developerChecklist">
+        <h1>Developer Checklist Form</h1>
+        
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="prLink">Pull Request Link:</label>
+        <input type="url" id="prLink" name="prLink" required>
+        
+        <table id="checklistTable">
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Response</th>
+                    <th>Comment</th>
+                </tr>
+            </thead>
+            <tbody id="checklistBody">
+                <tr>
+                    <td>1. Have you reviewed your own code?</td>
+                    <td>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="q1" value="pass" required> Pass</label>
+                            <label class="radio-option"><input type="radio" name="q1" value="fail"> Fail</label>
+                            <label class="radio-option"><input type="radio" name="q1" value="didnt_test"> Didn't Test</label>
+                            <label class="radio-option"><input type="radio" name="q1" value="na"> N/A</label>
+                        </div>
+                    </td>
+                    <td><textarea name="c1"></textarea></td>
+                </tr>
+                <tr>
+                    <td>2. Did you run all tests locally?</td>
+                    <td>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="q2" value="pass" required> Pass</label>
+                            <label class="radio-option"><input type="radio" name="q2" value="fail"> Fail</label>
+                            <label class="radio-option"><input type="radio" name="q2" value="didnt_test"> Didn't Test</label>
+                            <label class="radio-option"><input type="radio" name="q2" value="na"> N/A</label>
+                        </div>
+                    </td>
+                    <td><textarea name="c2"></textarea></td>
+                </tr>
+                <tr>
+                    <td>3. Have you updated documentation?</td>
+                    <td>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="q3" value="pass" required> Pass</label>
+                            <label class="radio-option"><input type="radio" name="q3" value="fail"> Fail</label>
+                            <label class="radio-option"><input type="radio" name="q3" value="didnt_test"> Didn't Test</label>
+                            <label class="radio-option"><input type="radio" name="q3" value="na"> N/A</label>
+                        </div>
+                    </td>
+                    <td><textarea name="c3"></textarea></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <button type="button" id="addRowButton">Add New Question</button>
+        
+        <div id="summary">
+            <h2>Summary</h2>
+            <p>Pass Percentage: <span id="passPercentage">0%</span></p>
+            <p>Didn't Test Percentage: <span id="didntTestPercentage">0%</span></p>
+        </div>
+        
+        <button type="button" id="generatePDFButton">Generate PDF</button>
+    </form>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let rowCount = 3; // Start at 3 because we have 3 default questions
+
+        function addRow() {
+            rowCount++;
+            const tbody = document.getElementById('checklistBody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>
+                    <textarea name="q${rowCount}" placeholder="Enter your question here" required></textarea>
+                </td>
+                <td>
+                    <div class="radio-group">
+                        <label class="radio-option"><input type="radio" name="r${rowCount}" value="pass" required> Pass</label>
+                        <label class="radio-option"><input type="radio" name="r${rowCount}" value="fail"> Fail</label>
+                        <label class="radio-option"><input type="radio" name="r${rowCount}" value="didnt_test"> Didn't Test</label>
+                        <label class="radio-option"><input type="radio" name="r${rowCount}" value="na"> N/A</label>
+                    </div>
+                </td>
+                <td><textarea name="c${rowCount}" placeholder="Enter your comment here"></textarea></td>
+            `;
+            tbody.appendChild(newRow);
+        }
+
+        function updateSummary() {
+            const radioGroups = document.querySelectorAll('.radio-group');
+            let totalTested = 0;
+            let totalPassed = 0;
+            let totalDidntTest = 0;
+
+            radioGroups.forEach(group => {
+                const selectedRadio = group.querySelector('input[type="radio"]:checked');
+                if (selectedRadio && selectedRadio.value !== 'na') {
+                    totalTested++;
+                    if (selectedRadio.value === 'pass') {
+                        totalPassed++;
+                    } else if (selectedRadio.value === 'didnt_test') {
+                        totalDidntTest++;
+                    }
+                }
+            });
+
+            const passPercentage = totalTested ? (totalPassed / totalTested * 100).toFixed(2) : 0;
+            const didntTestPercentage = totalTested ? (totalDidntTest / totalTested * 100).toFixed(2) : 0;
+
+            document.getElementById('passPercentage').textContent = passPercentage + '%';
+            document.getElementById('didntTestPercentage').textContent = didntTestPercentage + '%';
+        }
+
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Set font size and style
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "normal");
+
+            // Add user information
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const prLink = document.getElementById('prLink').value;
+            
+            doc.text(`Name: ${name}`, 10, 10);
+            doc.text(`Email: ${email}`, 10, 20);
+            doc.text(`PR Link: ${prLink}`, 10, 30);
+
+            // Add summary statistics
+            const passPercentage = document.getElementById('passPercentage').textContent;
+            const didntTestPercentage = document.getElementById('didntTestPercentage').textContent;
+            
+            doc.text(`Pass Percentage: ${passPercentage}`, 10, 50);
+            doc.text(`Didn't Test Percentage: ${didntTestPercentage}`, 10, 60);
+
+            // Create table for responses
+            const headers = ['Question', 'Response', 'Comment'];
+            const rows = [];
+
+            document.querySelectorAll('#checklistBody tr').forEach((row, index) => {
+                let question;
+                if (index < 3) {
+                    // For default questions, use the text content
+                    question = row.cells[0].textContent.trim();
+                } else {
+                    // For custom questions, use the textarea value
+                    question = row.cells[0].querySelector('textarea').value.trim();
+                }
+                const response = row.querySelector('input[type="radio"]:checked')?.value || 'N/A';
+                const comment = row.cells[2].querySelector('textarea').value.trim();
+                rows.push([question, response, comment]);
+            });
+
+            // Add the table to the PDF
+            doc.autoTable({
+                head: [headers],
+                body: rows,
+                startY: 70,
+                margin: { top: 70 },
+                styles: { fontSize: 8 },
+                columnStyles: {
+                    0: { cellWidth: 80 },
+                    1: { cellWidth: 30 },
+                    2: { cellWidth: 70 }
+                }
+            });
+
+            // Save the PDF
+            doc.save('developer_checklist.pdf');
+        }
+
+        // Attach event listeners
+        document.getElementById('developerChecklist').addEventListener('change', updateSummary);
+        document.getElementById('addRowButton').addEventListener('click', addRow);
+        document.getElementById('generatePDFButton').addEventListener('click', generatePDF);
+    });
+    </script>
+</body>
+</html>
